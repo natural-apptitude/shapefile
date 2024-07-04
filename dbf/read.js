@@ -17,7 +17,8 @@ export default function() {
   var that = this, i = 1;
   return that._source.slice(that._recordLength).then(function(value) {
     return value && (value[0] !== 0x1a) ? {done: false, value: that._fields.reduce(function(p, f) {
-      var v = value.subarray(i, i += f.length), j = v.indexOf(0);
+      var v = value.subarray(i, i += f.length);
+      var j = v.indexOf(0);
       if (j > -1) v = v.subarray(0, j);
       p[f.name] = types[f.type](that._decode(v), "");
       return p;
